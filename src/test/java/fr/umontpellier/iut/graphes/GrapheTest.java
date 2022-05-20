@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.graphes;
 
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -21,6 +22,26 @@ public class GrapheTest {
     }
 
     @Test
+    void testExisteArete(){
+        Graphe g = buildGraphe(4,new int[][]{{0,1,1},{2,3,1}});
+        assertTrue(g.existeArete(0,1));
+        assertTrue(g.existeArete(2,3));
+        assertFalse(g.existeArete(0,3));
+        assertFalse(g.existeArete(2,1));
+    }
+
+    @Disabled
+    @Test
+    void testVoisins(){
+        Graphe g = buildGraphe(4,new int[][]{{2,3,1},{2,1,1},{1,3,1}});
+        ArrayList<Integer> listeVoisins = new ArrayList<Integer>();
+        listeVoisins.add(1);
+        listeVoisins.add(2);
+        assertEquals(listeVoisins, g.voisins(3));
+        assertNotEquals(listeVoisins, g.voisins(0));
+    }
+
+    @Test
     void testCCdeV() {
         Graphe g = buildGraphe(4,new int[][]{{0,1,1},{2,3,1}});
         ArrayList<Integer> res = g.calculerClasseDeConnexite(2);
@@ -31,9 +52,7 @@ public class GrapheTest {
         answer.add(3);
         answer.add(2);
 
-
-
-        assertEquals(resSet, answer);
+        assertEquals(answer, resSet);
     }
 
     @Test
@@ -69,6 +88,7 @@ public class GrapheTest {
         System.out.println(res);
     }
 
+    @Disabled
     @Test
     void testEstUnIsthme() {
         Graphe g = buildGraphe(4,new int[][]{{0,1,1},{2,3,1},{2,1,1},{1,3,1}});
@@ -76,6 +96,7 @@ public class GrapheTest {
         assertFalse(g.estUnIsthme(1,3));
     }
 
+    @Disabled
     @Test
     void testPlusLongChemin() {
         Graphe g = buildGraphe(5,new int[][]{{3,4,1},{4,1,1},{0,1,1},{2,3,1},{2,1,1},{1,3,1}});
@@ -91,7 +112,7 @@ public class GrapheTest {
         assertEquals(g.plusLongChemin(),L);
     }
 
-
+    @Disabled
     @Test
     void testExisteParcoursEulerien() {
         Graphe g = buildGraphe(5,new int[][]{{0,1,1},{1,2,1},{2,0,1},{1,3,1},{2,4,1}});
@@ -99,6 +120,7 @@ public class GrapheTest {
         assertFalse(g.existeParcoursEulerien());
     }
 
+    @Disabled
     @Test
     void testEstUnArbre() {
         Graphe g = buildGraphe( 13, new int[][]{{0,1,1},{1,2,1},{2,3,1},{2,4,1},{2,8,1},{4,5,1},{5,6,1},{5,7,1},{8,9,1},{8,10,1},{8,11,1},{11,12,1}});

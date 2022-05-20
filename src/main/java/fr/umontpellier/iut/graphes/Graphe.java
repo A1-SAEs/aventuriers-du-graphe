@@ -73,7 +73,7 @@ public class Graphe {
      * @return vrai s'il existe une arête entre i et j, faux sinon
      */
     public boolean existeArete(int i, int j) {
-        throw new RuntimeException("Méthode non implémentée !");
+        return mat[i][j] > 0 && mat[j][i] > 0;
     }
 
     /**
@@ -81,7 +81,13 @@ public class Graphe {
      * @return la liste des sommets voisins de v
      */
     public ArrayList<Integer> voisins(int v) {
-        throw new RuntimeException("Méthode non implémentée !");
+        ArrayList<Integer> voisins = new ArrayList<>();
+        for(int i=0; i<mat[v].length; i++){
+            if(existeArete(v, i)){
+                voisins.add(i);
+            }
+        }
+        return voisins;
     }
 
     /**
@@ -106,14 +112,38 @@ public class Graphe {
      * @return une liste d'entiers représentant les sommets de la classe de connexité de v
      */
     public ArrayList<Integer> calculerClasseDeConnexite(int v) {
-        throw new RuntimeException("Méthode non implémentée !");
+        ArrayList<Integer> rouge = new ArrayList<>();
+        ArrayList<Integer> bleu = new ArrayList<>();
+        bleu.add(v);
+        while (!bleu.isEmpty()) {
+            int sommetActuel = bleu.get(0);
+            for (int sommet : voisins(sommetActuel)) {
+                if (!rouge.contains(sommet) && !bleu.contains(sommet)) {
+                    bleu.add(sommet);
+                }
+            }
+            rouge.add(bleu.remove(0));
+        }
+        return rouge;
     }
 
     /**
      * @return la liste des classes de connexité du graphe
      */
     public ArrayList<ArrayList<Integer>> calculerClassesDeConnexite() {
-        throw new RuntimeException("Méthode non implémentée !");
+        ArrayList<Integer> listeSommets = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> listeClassesDeConnexite = new ArrayList<>();
+        for(int i = 0; i<nbSommets(); i++){
+            listeSommets.add(i);
+        }
+
+        while(!listeSommets.isEmpty()){
+             if(calculerClasseDeConnexite(listeSommets.get(0)).contains(listeSommets.get(0))){
+                listeSommets.remove(0);
+             }
+             listeClassesDeConnexite.add(calculerClasseDeConnexite(listeSommets.get(0)));
+        }
+        return listeClassesDeConnexite;
     }
 
     /**
