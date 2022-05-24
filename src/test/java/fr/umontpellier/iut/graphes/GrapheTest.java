@@ -30,7 +30,7 @@ public class GrapheTest {
         assertFalse(g.existeArete(2,1));
     }
 
-    @Disabled
+
     @Test
     void testVoisins(){
         Graphe g = buildGraphe(4,new int[][]{{2,3,1},{2,1,1},{1,3,1}});
@@ -54,6 +54,7 @@ public class GrapheTest {
 
         assertEquals(answer, resSet);
     }
+
 
     @Test
     void testCC() {
@@ -81,6 +82,7 @@ public class GrapheTest {
         assertEquals(resSet, answer);
     }
 
+
     @Test
     void testCCPlusDur() {
         Graphe g = buildGraphe(4,new int[][]{{2,3,1},{2,1,1},{1,3,1}});
@@ -88,7 +90,7 @@ public class GrapheTest {
         System.out.println(res);
     }
 
-    @Disabled
+
     @Test
     void testEstUnIsthme() {
         Graphe g = buildGraphe(4,new int[][]{{0,1,1},{2,3,1},{2,1,1},{1,3,1}});

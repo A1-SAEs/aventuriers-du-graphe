@@ -138,13 +138,13 @@ public class Graphe {
         }
 
         while(!listeSommets.isEmpty()){
-             if(calculerClasseDeConnexite(listeSommets.get(0)).contains(listeSommets.get(0))){
-                listeSommets.remove(0);
-             }
-             listeClassesDeConnexite.add(calculerClasseDeConnexite(listeSommets.get(0)));
+            ArrayList<Integer> classe = calculerClasseDeConnexite(listeSommets.remove(0));
+            listeClassesDeConnexite.add(classe);
+            listeSommets.removeAll(classe);
         }
         return listeClassesDeConnexite;
     }
+
 
     /**
      * @return le nombre de classes de connexité
@@ -159,7 +159,17 @@ public class Graphe {
      * @return vrai si (u,v) est un isthme, faux sinon
      */
     public boolean estUnIsthme(int u, int v) {
-        throw new RuntimeException("Méthode non implémentée !");
+        if (!existeArete(u,v)){
+            return false;
+        }
+        int distance = mat[u][v];
+        this.supprimerArete(u,v);
+        boolean reponse = true;
+        if (this.calculerClasseDeConnexite(u).contains(v)){
+                 reponse = false;
+        }
+        this.ajouterArete(u,v,distance);
+        return reponse;
     }
 
 
@@ -176,8 +186,21 @@ public class Graphe {
     /**
      * @return vrai s'il existe un parcours eulérien dans le graphe, faux sinon
      */
-    public boolean existeParcoursEulerien() {
-        throw new RuntimeException("Méthode non implémentée !");
+    public boolean existeParcoursEulerien() { /* pas sûr à vérifier*/
+        int sommetsImpairs = 0;
+        if(this.nbCC() != 1){
+            return false;
+        }
+
+        for(int i=0;i<mat.length;i++){
+            for(int j=0;j< mat.length;j++){
+                if (mat[i][j]%2!=0){
+                    sommetsImpairs++;
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
