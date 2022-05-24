@@ -122,7 +122,6 @@ public class GrapheTest {
         assertFalse(g.existeParcoursEulerien());
     }
 
-    @Disabled
     @Test
     void testEstUnArbre() {
         Graphe g = buildGraphe( 13, new int[][]{{0,1,1},{1,2,1},{2,3,1},{2,4,1},{2,8,1},{4,5,1},{5,6,1},{5,7,1},{8,9,1},{8,10,1},{8,11,1},{11,12,1}});

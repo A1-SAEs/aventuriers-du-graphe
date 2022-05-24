@@ -2,6 +2,7 @@ package fr.umontpellier.iut.graphes;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Graphe {
     /**
@@ -132,10 +133,11 @@ public class Graphe {
      */
     public ArrayList<ArrayList<Integer>> calculerClassesDeConnexite() {
         ArrayList<Integer> listeSommets = new ArrayList<>();
-        ArrayList<ArrayList<Integer>> listeClassesDeConnexite = new ArrayList<>();
         for(int i = 0; i<nbSommets(); i++){
             listeSommets.add(i);
         }
+
+        ArrayList<ArrayList<Integer>> listeClassesDeConnexite = new ArrayList<>();
 
         while(!listeSommets.isEmpty()){
             ArrayList<Integer> classe = calculerClasseDeConnexite(listeSommets.remove(0));
@@ -207,7 +209,7 @@ public class Graphe {
      * @return vrai si le graphe est un arbre, faux sinon
      */
     public boolean estUnArbre() {
-        throw new RuntimeException("Méthode non implémentée !");
+        return nbCC() == 1 && nbAretes() == nbSommets()-1;
     }
 
 }
