@@ -98,7 +98,6 @@ public class GrapheTest {
         assertFalse(g.estUnIsthme(1,3));
     }
 
-    @Disabled
     @Test
     void testPlusLongChemin() {
         Graphe g = buildGraphe(5,new int[][]{{3,4,1},{4,1,1},{0,1,1},{2,3,1},{2,1,1},{1,3,1}});
@@ -114,7 +113,6 @@ public class GrapheTest {
         assertEquals(g.plusLongChemin(),L);
     }
 
-    @Disabled
     @Test
     void testExisteParcoursEulerien() {
         Graphe g = buildGraphe(5,new int[][]{{0,1,1},{1,2,1},{2,0,1},{1,3,1},{2,4,1}});

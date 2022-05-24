@@ -181,27 +181,28 @@ public class Graphe {
      * @return une liste de sommets formant le plus long chemin dans le graphe
      */
     public ArrayList<Integer> plusLongChemin() {
-        throw new RuntimeException("Méthode non implémentée !");
-    }
+        ArrayList<Integer> plusLong = new ArrayList<>();
 
+        return plusLong;
+    }
 
     /**
      * @return vrai s'il existe un parcours eulérien dans le graphe, faux sinon
      */
-    public boolean existeParcoursEulerien() { /* pas sûr à vérifier*/
+    public boolean existeParcoursEulerien() {
         int sommetsImpairs = 0;
         if(this.nbCC() != 1){
             return false;
         }
 
         for(int i=0;i<mat.length;i++){
-            int degré =0;
+            int degre =0;
             for(int j=0;j< mat.length;j++){
                 if (mat[i][j]!=0){
-                    degré++;
+                    degre++;
                 }
             }
-            if(degré%2!=0){
+            if(degre%2!=0){
                 sommetsImpairs++;
             }
         }
@@ -215,5 +216,4 @@ public class Graphe {
     public boolean estUnArbre() {
         return nbCC() == 1 && nbAretes() == nbSommets()-1;
     }
-
 }
