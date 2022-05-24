@@ -195,14 +195,18 @@ public class Graphe {
         }
 
         for(int i=0;i<mat.length;i++){
+            int degré =0;
             for(int j=0;j< mat.length;j++){
-                if (mat[i][j]%2!=0){
-                    sommetsImpairs++;
+                if (mat[i][j]!=0){
+                    degré++;
                 }
+            }
+            if(degré%2!=0){
+                sommetsImpairs++;
             }
         }
 
-        return true;
+        return sommetsImpairs==0 || sommetsImpairs==2;
     }
 
     /**
