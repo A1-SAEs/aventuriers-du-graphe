@@ -127,6 +127,13 @@ public class GrapheTest {
     }
 
 
+    @Test
+    void testEstUneForet(){
+        Graphe g = buildGraphe(8,new int[][]{{1,2,1},{2,3,1},{4,5,1},{4,6,1},{6,7,1}});
+        assertTrue(g.estUneForet());
+    }
+
+
 
 
 }

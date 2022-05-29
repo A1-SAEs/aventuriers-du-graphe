@@ -216,4 +216,15 @@ public class Graphe {
     public boolean estUnArbre() {
         return nbCC() == 1 && nbAretes() == nbSommets()-1;
     }
+
+    /**
+     * @return vrai si le graphe est une forêt, faux sinon
+     */
+    public boolean estUneForet() {
+        if (this.nbCC()<2){
+            return false;
+        }
+
+        return nbAretes() == nbSommets()-nbCC();
+    }
 }
