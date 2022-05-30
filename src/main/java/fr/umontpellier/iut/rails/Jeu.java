@@ -195,8 +195,15 @@ public class Jeu implements Runnable {
         for (Joueur joueur : joueurs) {
             Graphe graphe = creationGraphe(joueur);
             scoresDestination(graphe, joueur);
+            cheminsPlusLongs.add(cheminPlusLong(graphe));
+        }
 
-            scoreFinaux.add(joueur.getScore());
+        int scoreMax = Collections.max(cheminsPlusLongs);
+        for(int i=0; i< joueurs.size(); i++){
+            if(scoreMax == cheminsPlusLongs.get(i)){
+                joueurs.get(i).setScore(10);
+            }
+            scoreFinaux.add(joueurs.get(i).getScore());
         }
         return scoreFinaux;
     }
@@ -211,8 +218,15 @@ public class Jeu implements Runnable {
         return graphe;
     }
 
-    public void scoresCheminPlusLong(Graphe graphe){
-
+    public int cheminPlusLong(Graphe graphe){
+        int sommeChemin = 0;
+        ArrayList<Integer> sommetsChemin = graphe.plusLongChemin();
+        while(sommetsChemin.size() > 2){
+            sommeChemin += graphe.getLongueur(sommetsChemin.get(0), sommetsChemin.get(1));
+            sommetsChemin.remove(0);
+        }
+        sommeChemin += graphe.getLongueur(sommetsChemin.get(0), sommetsChemin.get(1));
+        return sommeChemin;
     }
 
     public void scoresDestination(Graphe graphe, Joueur joueur) {

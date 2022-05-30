@@ -278,4 +278,8 @@ public class Graphe {
 
         return nbAretes() == nbSommets()-nbCC();
     }
+
+    public int getLongueur(int u, int v){
+        return mat[u][v];
+    }
 }
