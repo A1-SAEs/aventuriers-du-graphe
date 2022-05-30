@@ -182,8 +182,59 @@ public class Graphe {
      */
     public ArrayList<Integer> plusLongChemin() {
         ArrayList<Integer> plusLong = new ArrayList<>();
-
+        if(!this.existeParcoursEulerien()) {
+            for (int i = 0; i < this.nbSommets(); i++) {
+                if (plusLong.isEmpty() || plusLongCheminRecursif(this, i, 0).get(0) > plusLong.get(0)) {
+                    plusLong = plusLongCheminRecursif(this, i, 0);
+                }
+            }
+        }
+        else{
+            for (int i = 0; i < this.nbSommets(); i++) {
+                if (plusLong.isEmpty() || plusLongCheminRecursif(this, i, 0).get(0) > plusLong.get(0)) {
+                    plusLong = plusLongCheminRecursif(this, i, 0);
+                }
+            }
+        }
+        plusLong.remove(0);
         return plusLong;
+    }
+
+    /**
+     * algo de récursivité pour le chemin le plus long
+     *
+     * @return une liste de sommets formant le plus long chemin qu'il a trouvé
+     */
+    public ArrayList<Integer> plusLongCheminRecursif(Graphe g, int u, int taille){
+        ArrayList<Integer> cheminPlusLong = new ArrayList<>();
+        cheminPlusLong.add(u);
+        ArrayList<Integer> plusLongActuel = new ArrayList<>();
+        int plusLongActuelTaille = 0;
+
+        if(g.voisins(u).isEmpty()){
+            cheminPlusLong.add(0,plusLongActuelTaille);
+            return cheminPlusLong;
+        }
+
+        for(int voisins: g.voisins(u)){
+            Graphe gbis = new Graphe(g.mat.length);
+            for(int i=0;i<g.mat.length;i++){
+                gbis.ajouterArete(g.mat[i][0],g.mat[i][1],g.mat[i][2]);
+            }
+            gbis.supprimerArete(u,voisins);
+
+            ArrayList<Integer> nouveauChemin = plusLongCheminRecursif(gbis,voisins,taille+g.mat[u][voisins]);
+            if(nouveauChemin.get(0)>plusLongActuelTaille){
+                plusLongActuelTaille=nouveauChemin.get(0);
+                nouveauChemin.remove(0);
+                plusLongActuel=nouveauChemin;
+            }
+        }
+
+        cheminPlusLong.addAll(plusLongActuel);
+        cheminPlusLong.add(0,plusLongActuelTaille);
+
+        return cheminPlusLong;
     }
 
     /**
