@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.rails;
 
 import com.google.gson.Gson;
+import fr.umontpellier.iut.graphes.Graphe;
 import fr.umontpellier.iut.gui.GameServer;
 
 import java.util.*;
@@ -188,7 +189,52 @@ public class Jeu implements Runnable {
      * @return une liste d'entiers, le ième entier étant le score du ième joueur
      */
     public List<Integer> calculerLesScores() {
-        throw new RuntimeException("Méthode non implémentée !");
+        List<Integer> cheminsPlusLongs = new ArrayList<>();
+        List<Integer> scoreFinaux = new ArrayList<>();
+
+        for (Joueur joueur : joueurs) {
+            Graphe graphe = creationGraphe(joueur);
+            scoresDestination(graphe, joueur);
+
+            scoreFinaux.add(joueur.getScore());
+        }
+        return scoreFinaux;
+    }
+
+    public Graphe creationGraphe(Joueur joueur) {
+        Graphe graphe = new Graphe(getVilles().size());
+        for (Route route : getRoutes()) {
+            if (route.getProprietaire() != null && route.getProprietaire() == joueur) {
+                graphe.ajouterArete(getVilles().indexOf(route.getVille1()), getVilles().indexOf(route.getVille2()), route.getLongueur());
+            }
+        }
+        return graphe;
+    }
+
+    public void scoresCheminPlusLong(Graphe graphe){
+
+    }
+
+    public void scoresDestination(Graphe graphe, Joueur joueur) {
+        Ville ville1 = null;
+        Ville ville2 = null;
+        for(Destination destination : joueur.getDestinations()){
+            for(Ville ville : getVilles()){
+                if(ville.getNom().equals(destination.getVille1())){
+                    ville1 = ville;
+                }
+                else if(ville.getNom().equals(destination.getVille2())){
+                    ville2 = ville;
+                }
+            }
+            if(graphe.calculerClasseDeConnexite(getVilles().indexOf(ville1)).contains(getVilles().indexOf(ville2))){
+                joueur.setScore(destination.getValeur());
+            }
+            else{
+                joueur.setScore(destination.getValeur()*-1);
+            }
+        }
+
     }
 
     /**

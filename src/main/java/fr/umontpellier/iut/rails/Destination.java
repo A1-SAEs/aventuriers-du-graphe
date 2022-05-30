@@ -29,6 +29,12 @@ public class Destination {
         return getNom();
     }
 
+    public String getVille1(){ return ville1;}
+
+    public String getVille2(){ return ville2;}
+
+    public int getValeur(){ return valeur;}
+
     public String getNom() {
         return String.format("%s - %s (%d)", ville1, ville2, valeur);
     }

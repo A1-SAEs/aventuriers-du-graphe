@@ -100,7 +100,7 @@ public class Joueur {
      * @param n
      */
     public void setScore(int n) {
-        throw new RuntimeException("Méthode non implémentée !");
+        score += n;
     }
 
     /**
